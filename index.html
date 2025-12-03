@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <title>Für dich 💖</title>
+  <style>
+    body {
+      margin: 0;
+      overflow: hidden;
+      background: black;
+      color: white;
+      font-family: Arial, sans-serif;
+      height: 100vh;
+    }
+
+    .symbol {
+      position: absolute;
+      font-size: 40px;
+      animation: floatUp 6s linear forwards;
+      user-select: none;
+      pointer-events: none;
+    }
+
+    @keyframes floatUp {
+      0% { transform: translateY(0); opacity: 1; }
+      100% { transform: translateY(-700px); opacity: 0; }
+    }
+
+    #centerText {
+      position: absolute;
+      top: 50%;
+      width: 100%;
+      text-align: center;
+      font-size: 36px;
+      animation: fade 3s ease-in-out;
+      padding: 0 20px;
+    }
+
+    @keyframes fade {
+      0% { opacity: 0; }
+      50% { opacity: 1; }
+      100% { opacity: 0; }
+    }
+  </style>
+</head>
+<body>
+
+<div id="centerText"></div>
+
+<script>
+  const symbols = ["❤️", "💖", "⭐", "🐟", "🐭"];
+  const texts = [
+    "Ich liebe dich ganz galaktisch dolle",
+    "Maus Maus Luni",
+    "Du bist mein Stern ⭐",
+    "So ultra mega knuffig",
+    "Fisch Luni"
+  ];
+
+  function createFloatingSymbol(x = null, y = null) {
+    const el = document.createElement("div");
+    el.className = "symbol";
+    el.innerText = symbols[Math.floor(Math.random() * symbols.length)];
+    el.style.left = (x ?? Math.random() * window.innerWidth) + "px";
+    el.style.bottom = (y ?? 0) + "px";
+    document.body.appendChild(el);
+
+    setTimeout(() => el.remove(), 6000);
+  }
+
+  function showCenterText() {
+    const text = texts[Math.floor(Math.random() * texts.length)];
+    const center = document.getElementById("centerText");
+
+    center.style.animation = "none";
+    center.offsetHeight;
+    center.style.animation = "fade 3s ease-in-out";
+    center.innerText = text;
+  }
+
+  // Automatisch schwebende Symbole + Texte
+  setInterval(() => {
+    createFloatingSymbol();
+    showCenterText();
+  }, 3000);
+
+  // Reaktion auf Berührung / Klick
+  document.addEventListener("click", e => {
+    createFloatingSymbol(e.clientX, 0);
+  });
+
+  // 🎁 GEHEIME ÜBERRASCHUNG NACH 1 MINUTE (DEIN TEXT)
+  setTimeout(() => {
+    alert("Ich liebe dich für immer und ewig. Du bist galaktisch wunderbar. GaLiGrü Flo");
+  }, 60000);
+</script>
+
+</body>
+</html>
